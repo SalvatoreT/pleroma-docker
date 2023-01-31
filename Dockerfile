@@ -7,7 +7,6 @@ FROM debian:bullseye-slim
 RUN apt update  \
     && apt full-upgrade -y \
     && apt install -y \
-    certbot \
     curl \
     ffmpeg \
     imagemagick \
@@ -16,8 +15,6 @@ RUN apt update  \
     libncurses5 \
     locales \
     locales-all \
-    netcat \
-    nginx \
     postgresql \
     postgresql-contrib \
     unzip \
@@ -39,6 +36,8 @@ RUN mkdir -p \
     /mount
 VOLUME "/mount"
 
+ENV PLEROMA_CONFIG_PATH=/mount/config/config.exs
+
 USER pleroma
 WORKDIR /opt/pleroma
 
@@ -50,13 +49,7 @@ RUN arch="$(uname -m)";if [ "$arch" = "x86_64" ];then arch="amd64";elif [ "$arch
     && rmdir /tmp/release \
     && rm /tmp/pleroma.zip
 
-RUN echo '#!/usr/bin/env bash \n\
-while [[ $START_PLEROMA != "1" ]]; do \n\
-  echo -e "HTTP/1.1 200 OK\r\nContent-Length: 11\n\nHello World" | nc -l -p 8080 \n\
-done \n\
-/opt/pleroma/bin/pleroma start' > hello-world-or-pleroma.sh
-RUN chmod +x hello-world-or-pleroma.sh
+EXPOSE 4000
 
-EXPOSE 8080
-
-ENTRYPOINT ["/opt/pleroma/hello-world-or-pleroma.sh"]
+ENTRYPOINT ["/opt/pleroma/bin/pleroma"]
+CMD ["start"]
