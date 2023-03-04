@@ -16,6 +16,7 @@ services:
       PGDATABASE: pleroma
       PGPASSWORD: ${POSTGRES_PASSWORD}
       PGHOST: postgres
+    restart: unless-stopped
     # To be able to access the server on `http://localhost:4000`, comment `ports` back in.
 #    ports:
 #      - "4000:4000"
@@ -25,6 +26,7 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB: pleroma
+    restart: unless-stopped
     volumes:
       - postgres-data:/var/lib/postgresql/data
   cloudflared:
@@ -32,5 +34,6 @@ services:
     command: tunnel run
     environment:
       TUNNEL_TOKEN: ${TUNNEL_TOKEN}
+    restart: unless-stopped
     depends_on:
       - pleroma
