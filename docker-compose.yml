@@ -12,10 +12,10 @@ services:
     depends_on:
       - postgres
     environment:
-      PGUSER: postgres
-      PGDATABASE: pleroma
-      PGPASSWORD: ${POSTGRES_PASSWORD}
-      PGHOST: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_DB: pleroma
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_HOST: postgres
     restart: unless-stopped
     # To be able to access the server on `http://localhost:4000`, comment `ports` back in.
 #    ports:

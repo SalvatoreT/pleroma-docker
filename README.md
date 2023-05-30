@@ -52,9 +52,9 @@ domain/subdomain from the tunnel on this step.
 /opt/pleroma/bin/pleroma_ctl instance gen \
   --output /mount/config/config.exs \
   --output-psql /mount/config/setup_db.psql \
-  --dbhost postgres \
-  --dbname pleroma \
-  --dbuser postgres \
+  --dbhost "$POSTGRES_HOST" \
+  --dbname "$POSTGRES_DB" \
+  --dbuser "$POSTGRES_USER" \
   --dbpass "$POSTGRES_PASSWORD" \
   --rum N \
   --uploads-dir /mount/uploads \
@@ -70,7 +70,7 @@ domain/subdomain from the tunnel on this step.
 Still in the image, you'll want to generate the database.
 
 ```shell
-psql -f /mount/config/setup_db.psql "postgres://postgres:$POSTGRES_PASSWORD@postgres:5432"
+psql -f /mount/config/setup_db.psql "postgres://$POSTGRES_USER:$POSTGRES_PASSWORD@$POSTGRES_HOST:5432"
 ```
 
 Finally, you'll want to run pending migrations. When you upgrade the base Pleroma image, you'll want
@@ -78,7 +78,20 @@ to re-run this command.
 
 ```shell
 /opt/pleroma/bin/pleroma_ctl migrate
-exit
 ```
 
-Now you can run `docker compose up -d` to start the service and begin receiving traffic!
+### Optional
+
+Add yourself as an admin.
+
+```shell
+./bin/pleroma_ctl user new <nickname> <email> --admin --password <password>
+```
+
+## Start the server
+
+Now you can start the service and begin receiving traffic!
+
+```shell
+docker compose up -d
+```
