@@ -13,6 +13,7 @@ RUN apt update  \
     libimage-exiftool-perl \
     libmagic-dev \
     libncurses5 \
+    libvips \
     locales \
     locales-all \
     postgresql \
