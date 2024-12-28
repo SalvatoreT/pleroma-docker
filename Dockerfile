@@ -22,9 +22,9 @@ RUN apt update  \
     vim \
     && rm -rf /var/lib/apt/lists/*
 
-ENV LC_ALL en_US.UTF-8
-ENV LANG en_US.UTF-8
-ENV LANGUAGE en_US.UTF-8
+ENV LC_ALL=en_US.UTF-8
+ENV LANG=en_US.UTF-8
+ENV LANGUAGE=en_US.UTF-8
 
 # Install PleromaBE
 RUN adduser --system --shell /bin/false --home /opt/pleroma pleroma
