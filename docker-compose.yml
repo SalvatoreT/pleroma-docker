@@ -4,7 +4,7 @@ volumes:
 services:
   pleroma:
     # either have `build` to build the image locally or use the remote `image`
-    image: salvatoret/pleroma:v2.8.0
+    image: salvatoret/pleroma:v2.9.0
     # build: .
     volumes:
       - pleroma-data:/mount
