@@ -1,4 +1,4 @@
-FROM debian:bullseye-slim
+FROM debian:trixie-slim
 
 # From Installing on Linux using OTP releases
 # https://docs-develop.pleroma.social/backend/installation/otp_en/
@@ -12,7 +12,7 @@ RUN apt update  \
     imagemagick \
     libimage-exiftool-perl \
     libmagic-dev \
-    libncurses5 \
+    libncurses6 \
     libvips \
     locales \
     locales-all \
